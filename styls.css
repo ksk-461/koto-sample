@@ -1,0 +1,499 @@
+/* カスタムプロパティ（CSS変数）の定義 */
+:root {
+  /* メインカラー */
+  --color-primary: rgb(156, 29, 34);
+  --color-primary-light: rgb(210, 71, 90);
+  --color-primary-dark: rgb(135, 25, 30);
+
+  /* アクセントカラー */
+  --color-accent: rgb(255, 182, 193);
+  --color-accent-light: rgb(255, 218, 224);
+  --color-accent-dark: rgb(255, 192, 203);
+
+  /* 背景色 */
+  --color-bg-light: #fff9f9;
+  --color-bg-pink: #fff0f5;
+  --color-bg-white: #ffffff;
+
+  /* テキストカラー */
+  --color-text: #333;
+  --color-text-light: #666;
+  --color-text-white: #fff;
+
+  /* シャドウ */
+  --shadow-sm: 0 3px 6px rgba(156, 29, 34, 0.2);
+  --shadow-md: 0 5px 10px rgba(156, 29, 34, 0.3);
+  --shadow-lg: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 基本スタイル */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Hiragino Kaku Gothic ProN", "メイリオ", sans-serif;
+}
+
+body {
+  color: var(--color-text);
+  line-height: 1.6;
+  background-color: var(--color-bg-light);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* ヘッダー */
+header {
+  padding: 15px 0;
+  border-bottom: 3px solid rgba(156, 29, 34, 0.8);
+  background-color: var(--color-bg-white);
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 60px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  color: var(--color-primary);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.logo-text-foot {
+  color: var(--color-text-white);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* ナビゲーション */
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-left: 20px;
+  position: relative;
+}
+
+nav ul li a {
+  color: var(--color-text);
+  font-weight: bold;
+  padding: 5px;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: var(--color-primary);
+}
+
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: var(--color-primary);
+  bottom: 0;
+  left: 0;
+  transition: width 0.3s;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* ハンバーガーメニュー（モバイル用） */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  height: 3px;
+  width: 100%;
+  background-color: var(--color-primary);
+  border-radius: 3px;
+}
+
+/* メインビジュアル */
+.main-visual {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.visual-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--color-text-white);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  opacity: 0; /* GSAP用に初期非表示 */
+}
+
+.visual-text h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.visual-text p {
+  font-size: 18px;
+}
+
+/* アニメーション用クラス */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* お知らせセクション */
+.news-section {
+  padding: 60px 0;
+  background-color: var(--color-bg-white);
+  position: relative;
+  overflow: hidden; /* 水玉アニメーション用 */
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--color-primary);
+  position: relative;
+}
+
+.section-title:after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background-color: var(--color-primary);
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.news-item {
+  background: var(--color-bg-white);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.3s;
+  opacity: 0; /* GSAP用に初期非表示 */
+  transform: translateY(30px); /* 少し下から上に表示 */
+}
+
+.news-item:hover {
+  transform: translateY(-5px);
+}
+
+.news-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-content {
+  padding: 20px;
+}
+
+.news-date {
+  color: var(--color-primary);
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.news-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.news-excerpt {
+  font-size: 14px;
+  color: var(--color-text-light);
+}
+
+/* 教育方針セクション */
+.philosophy-section {
+  padding: 60px 0;
+  background-color: var(--color-bg-pink);
+  position: relative;
+  overflow: hidden; /* 水玉アニメーション用 */
+}
+
+.philosophy-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.philosophy-text {
+  flex: 1;
+  opacity: 0; /* GSAP用に初期非表示 */
+}
+
+.philosophy-image {
+  flex: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  opacity: 0; /* GSAP用に初期非表示 */
+  transform: translateX(30px); /* 右から左に表示 */
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 25px;
+  background: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-primary-light)
+  );
+  color: var(--color-text-white);
+  border-radius: 30px;
+  margin-top: 20px;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+
+.button:hover {
+  background: linear-gradient(
+    to right,
+    var(--color-primary-dark),
+    var(--color-primary-light)
+  );
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* 園児募集セクション */
+.recruitment-section {
+  padding: 60px 0;
+  background-color: var(--color-bg-white);
+  position: relative;
+  overflow: hidden; /* 水玉アニメーション用 */
+}
+
+.info-box {
+  background: linear-gradient(
+    145deg,
+    var(--color-bg-white),
+    var(--color-bg-pink)
+  );
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+  margin-top: 30px;
+  opacity: 0; /* GSAP用に初期非表示 */
+}
+
+.info-item {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed rgba(156, 29, 34, 0.2);
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: bold;
+  color: var(--color-primary);
+  margin-bottom: 5px;
+}
+
+/* フッター */
+footer {
+  background: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-primary-light)
+  );
+  color: var(--color-text-white);
+  padding: 40px 0 20px;
+  position: relative;
+}
+
+/* フッターの装飾 */
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q 10 0, 20 10 T 40 10 T 60 10 T 80 10 T 100 10 Z' fill='%23FFF0F5'/%3E%3C/svg%3E")
+    repeat-x;
+  background-size: 100px 10px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.footer-info {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-nav {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-nav h3 {
+  margin-bottom: 15px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-nav h3:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background-color: var(--color-text-white);
+}
+
+.footer-nav ul {
+  list-style: none;
+}
+
+.footer-nav ul li {
+  margin-bottom: 10px;
+}
+
+.footer-contact {
+  flex: 1;
+  min-width: 250px;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 12px;
+}
+
+/* 水玉スタイル - JSで動的に生成 */
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  nav {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+  }
+
+  nav.active {
+    max-height: 300px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    padding: 20px 0 0;
+  }
+
+  nav ul li {
+    margin: 0 0 10px;
+  }
+
+  .main-visual {
+    height: 300px;
+  }
+
+  .visual-text h1 {
+    font-size: 28px;
+  }
+
+  .visual-text p {
+    font-size: 16px;
+  }
+
+  .philosophy-content {
+    flex-direction: column;
+  }
+
+  .footer-content {
+    flex-direction: column;
+  }
+}
